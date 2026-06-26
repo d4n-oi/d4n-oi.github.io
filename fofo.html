@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para o Meu Amor ❤️</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Reset de estilos e variáveis base */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, #ffe5ec 0%, #ffc2d1 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+            position: relative;
+            padding: 40px 20px;
+        }
+        
+        /* Animação dos Corações Flutuantes ao Fundo */
+        .hearts-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 1;
+            pointer-events: none;
+        }
+        .floating-heart {
+            position: absolute;
+            bottom: -50px;
+            color: rgba(255, 75, 110, 0.35);
+            font-size: 24px;
+            animation: floatUp 6s linear infinite;
+        }
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0) rotate(0deg) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-105vh) rotate(360deg) scale(1.6);
+                opacity: 0;
+            }
+        }
+
+        /* Cantos Floridos */
+        .flower-corner {
+            position: fixed;
+            width: 140px;
+            height: 140px;
+            z-index: 10;
+            pointer-events: none;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(3, 1fr);
+            padding: 10px;
+        }
+        .top-left { top: 0; left: 0; }
+        .top-right { top: 0; right: 0; }
+        .bottom-left { bottom: 0; left: 0; }
+        .bottom-right { bottom: 0; right: 0; }
+
+        .flower {
+            font-size: 2.2rem;
+            opacity: 0;
+            transform: scale(0) rotate(0deg);
+            animation: bloomIn 1.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+            text-align: center;
+        }
+        
+        .flower:nth-child(1) { animation-delay: 0.1s; }
+        .flower:nth-child(2) { animation-delay: 0.3s; }
+        .flower:nth-child(3) { animation-delay: 0.5s; }
+        .flower:nth-child(4) { animation-delay: 0.7s; }
+        .flower:nth-child(5) { animation-delay: 0.9s; }
+        .flower:nth-child(6) { animation-delay: 1.1s; }
+
+        @keyframes bloomIn {
+            to {
+                opacity: 1;
+                transform: scale(1) rotate(15deg);
+            }
+        }
+
+        .side-gif {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 150px;
+            z-index: 4;
+            pointer-events: none;
+            transition: all 0.3s ease;
+        }
+        .left-gif { left: 40px; }
+        .right-gif { right: 40px; }
+        .side-gif img {
+            width: 100%;
+            border-radius: 20px;
+            border: 4px solid white;
+            box-shadow: 0 10px 25px rgba(255, 75, 110, 0.2);
+        }
+
+        /* Efeito de Fotos Espalhadas / Colagem Bagunçada */
+        .collage-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 2; /* Fica atrás do Card Principal (z-index 5) */
+            overflow: hidden;
+        }
+        .collage-img {
+            position: absolute;
+            width: 125px;
+            height: auto;
+            border: 6px solid white;
+            box-shadow: 3px 5px 15px rgba(255, 75, 110, 0.18);
+            border-radius: 4px;
+            pointer-events: auto; /* Permite interagir com as fotos */
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+        /* Passar o mouse traz a foto para frente e a endireita */
+        .collage-img:hover {
+            transform: scale(1.25) rotate(0deg) !important;
+            z-index: 20;
+            box-shadow: 5px 10px 25px rgba(255, 75, 110, 0.35);
+        }
+
+        /* Card Central */
+        .card {
+            background: rgba(255, 255, 255, 0.88);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 2px solid rgba(255, 182, 193, 0.7);
+            border-radius: 25px;
+            padding: 35px 25px;
+            width: 100%;
+            max-width: 480px;
+            text-align: center;
+            box-shadow: 0 15px 35px rgba(255, 75, 110, 0.18);
+            z-index: 5;
+            position: relative;
+        }
+
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3.2rem;
+            color: #ff4b6e;
+            margin-bottom: 5px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
+        }
+
+        .subtitle {
+            font-size: 0.85rem;
+            color: #777;
+            margin-bottom: 25px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Coração Pulsante */
+        .heart-container {
+            margin: 15px 0;
+            position: relative;
+        }
+        .main-heart {
+            font-size: 5.5rem;
+            display: inline-block;
+            animation: pulse 1.2s infinite;
+            cursor: pointer;
+            user-select: none;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.15); }
+            100% { transform: scale(1); }
+        }
+
+        /* Joguinho do Botão Fujão */
+        .quiz-section {
+            margin: 25px 0;
+            background: rgba(255, 240, 243, 0.7);
+            padding: 20px;
+            border-radius: 15px;
+            border: 2px dashed #ff758f;
+        }
+        .quiz-title {
+            font-size: 1.1rem;
+            color: #ff4b6e;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+        .btn-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            position: relative;
+            min-height: 55px;
+            align-items: center;
+        }
+        .btn {
+            padding: 10px 25px;
+            font-size: 0.95rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        .btn-sim {
+            background-color: #ff4b6e;
+            color: white;
+            z-index: 2;
+        }
+        .btn-sim:hover {
+            transform: scale(1.1);
+            background-color: #ff2a54;
+        }
+        .btn-nao {
+            background-color: #b0bec5;
+            color: white;
+            transition: left 0.15s ease, top 0.15s ease, transform 0.15s ease;            
+            z-index: 3;
+        }
+
+        /* Contador de Tempo */
+        .counter-section {
+            margin: 20px 0;
+            font-size: 0.95rem;
+            color: #444;
+        }
+        .timer-grid {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+            background: #ffffff;
+            padding: 12px;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+        }
+        .timer-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 1;
+        }
+        .timer-num {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #ff4b6e;
+        }
+        .timer-label {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            color: #999;
+            margin-top: 2px;
+            font-weight: 600;
+        }
+
+        /* Caixa de Frases Românticas */
+        .phrase-box {
+            background: #fff;
+            padding: 15px;
+            border-radius: 12px;
+            margin-top: 20px;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
+            border-left: 4px solid #ff4b6e;
+            min-height: 65px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-style: italic;
+            color: #555;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+        .phrase-btn {
+            background: transparent;
+            border: 2px solid #ff4b6e;
+            color: #ff4b6e;
+            padding: 7px 15px;
+            border-radius: 20px;
+            margin-top: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: 0.2s;
+        }
+        .phrase-btn:hover {
+            background: #ff4b6e;
+            color: white;
+        }
+
+        /* Modal da Surpresa */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.55);
+            z-index: 100;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 380px;
+            animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+        }
+        @keyframes popIn {
+            from { transform: scale(0.7); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+        .kiss-pop {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            font-size: 8rem;
+            z-index: 9999;
+            pointer-events: none;
+            animation: kissAnimation 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+        @keyframes kissAnimation {
+            0% {
+                transform: translate(-50%, -50%) scale(0);
+                opacity: 0;
+            }
+            25% {
+                transform: translate(-50%, -50%) scale(1.6);
+                opacity: 1;
+            }
+            75% {
+                transform: translate(-50%, -55%) scale(1.6);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(-50%, -75%) scale(1.1);
+                opacity: 0;
+            }
+        }
+
+
+        .modal-content h2 {
+            font-family: 'Dancing Script', cursive;
+            color: #ff4b6e;
+            font-size: 2.6rem;
+            margin-bottom: 12px;
+        }
+        .modal-content p {
+            color: #555;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+        .modal-close {
+            background: #ff4b6e;
+            color: white;
+            border: none;
+            padding: 10px 22px;
+            border-radius: 20px;
+            margin-top: 20px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        #sadModal .modal-content h2 {
+            color: #546e7a;
+        }
+        #sadModal .modal-close {
+            background: #546e7a;
+        }
+
+        /* Responsividade para Celulares */
+        @media (max-width: 600px) {
+            .collage-img {
+                width: 75px; /* Menor no celular para dar espaço */
+                border: 3px solid white;
+            }
+            .flower-corner {
+                width: 100px;
+                height: 100px;
+            }
+            .flower {
+                font-size: 1.5rem;
+            }
+            h1 {
+                font-size: 2.6rem;
+            }
+            .card {
+                padding: 25px 15px;
+            }
+            .main-heart {
+                font-size: 4.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Cantos com Flores -->
+    <div class="flower-corner top-left">
+        <span class="flower">🌸</span><span class="flower">🌹</span><span class="flower">🌺</span>
+        <span class="flower">🌷</span><span class="flower">🌻</span><span class="flower">💐</span>
+    </div>
+    <div class="flower-corner top-right">
+        <span class="flower">🌺</span><span class="flower">🌹</span><span class="flower">🌸</span>
+        <span class="flower">💐</span><span class="flower">🌻</span><span class="flower">🌷</span>
+    </div>
+    <div class="flower-corner bottom-left">
+        <span class="flower">🌷</span><span class="flower">🌻</span><span class="flower">💐</span>
+        <span class="flower">🌸</span><span class="flower">🌹</span><span class="flower">🌺</span>
+    </div>
+    <div class="flower-corner bottom-right">
+        <span class="flower">💐</span><span class="flower">🌻</span><span class="flower">🌷</span>
+        <span class="flower">🌺</span><span class="flower">🌹</span><span class="flower">🌸</span>
+    </div>
+
+    <!-- GIFs Decorativos das Laterais (Desktop) -->
+    <div class="side-gif left-gif">
+        <img src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExdmUxYW13amJ1MXZobWhtdXFlZzU4OHdiNjVqeTFjbG0zOGFrdmdtMiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/2zoFXxGEQRR4DknVVa/giphy.gif" alt="Fofo Left">
+    </div>
+    <div class="side-gif right-gif">
+        <img src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExcHlxMnh6Z24zZ2N5czgxbW05ODB4OWI2M2I5bmY5c2VpeDhtd2Y0NSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/TjSPQgowhhJdHgvnwA/giphy.gif" class="card-gif" alt="Casal Fofo">
+    </div>
+
+    <!-- Container dos corações flutuando ao fundo -->
+    <div class="hearts-bg" id="heartsBg"></div>
+
+    <!-- Container da Colagem de Fotos (Injetado dinamicamente via JS) -->
+    <div class="collage-container" id="collageContainer"></div>
+
+    <!-- Card Central de Amor -->
+    <div class="card">
+        <h1>Para o Meu Bonitinhu</h1>
+        <p class="subtitle">Um site fofo e brega feito só patu</p>
+
+        <!-- Coração Interativo -->
+        <div class="heart-container">
+            <span class="main-heart" onclick="triggerHeartExplosion()">❤️</span>
+            <p style="font-size: 0.75rem; color: #aaa; margin-top: 2px;">(Clique no coraçaun)</p>
+        </div>
+
+        <!-- Contador Oficial -->
+        <div class="counter-section">
+            <p><strong>ó, eu sou mais feliz há</strong></p>
+            <div class="timer-grid">
+                <div class="timer-item">
+                    <span class="timer-num" id="days">00</span>
+                    <span class="timer-label">Dias</span>
+                </div>
+                <div class="timer-item">
+                    <span class="timer-num" id="hours">00</span>
+                    <span class="timer-label">Horas</span>
+                </div>
+                <div class="timer-item">
+                    <span class="timer-num" id="minutes">00</span>
+                    <span class="timer-label">Minutos</span>
+                </div>
+                <div class="timer-item">
+                    <span class="timer-num" id="seconds">00</span>
+                    <span class="timer-label">Segundos</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Jogo Clássico do Botão Fujão -->
+        <div class="quiz-section">
+            <p class="quiz-title">Você gosta de mim gosta??????</p>
+            <div class="btn-container">
+                <button class="btn btn-sim" onclick="showSurprise()">SIM! 🥰</button>
+                <button class="btn btn-nao" id="btnNao" onmouseover="fleeButton()" onclick="showSadSurprise()">NÃO 💔</button>
+            </div>
+        </div>
+
+        <!-- Gerador de Frases Cafonas -->
+        <p style="font-size: 0.85rem; font-weight: bold; color: #ff4b6e; margin-top: 15px;">Cuidado pra não ficar caidinho mas:</p>
+        <div class="phrase-box" id="phraseBox">
+            você é um gatinhu sabia?? 😼❤️
+        </div>
+        <button class="phrase-btn" onclick="nextPhrase()">e oq mais???</button>
+    </div>
+
+    <!-- Modal de Surpresa (Pop-up) -->
+    <div class="modal" id="surpriseModal">
+        <div class="modal-content">
+            <h2>AAaahhh briagadu💕💕</h2>
+            <p>Tbm goxtu muitão docê seu lindo maravilhosu💖💖💖💖💖</p>
+            <p style="margin-top: 10px; font-size: 1.1rem; color: #ff4b6e; font-weight: bold;">Um beijão nessa sua carinha mais linda</p>
+            
+            <!-- GIF 2: Modal -->
+            <img src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExbm1yN2w3dnFnMjJmaW50a29nZmRnaDdpa2kwemUxc3ZmeGc2YnQ1NyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/reTfIeMhEbzH2/giphy.gif" class="modal-gif" alt="Beijo Fofo">
+            
+            <button class="modal-close" onclick="closeSurprise()">tó um beju</button>
+        </div>
+    </div>
+
+    <div class="modal" id="sadModal">
+        <div class="modal-content">
+            <h2>Como assim??? 😭</h2>
+            <p style="font-size: 1.2rem; margin-bottom: 10px;">💔💔💔 Meu coração se quebrou em mil pedacinhos...💔💔💔</p>
+            <p>É isso mesmo? Vou ali pra chorar para sempre 😭 Acabou toda a minha facilidade e alegria, nunca mais sorrirei novamente, cabô. 💔</p>
+            <button class="modal-close" onclick="closeAndDestroySite()">Adeus... 💔</button>
+        </div>
+    </div>
+
+    <script>
+        // 1. Geração de corações flutuantes no fundo de forma contínua
+        const heartsBg = document.getElementById('heartsBg');
+        const heartEmojis = ['❤️', '💖', '💗', '💘', '💕', '✨'];
+        
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('floating-heart');
+            heart.innerText = heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = (Math.random() * 3 + 4) + 's';
+            heart.style.fontSize = (Math.random() * 20 + 15) + 'px';
+            heartsBg.appendChild(heart);
+            
+            setTimeout(() => {
+                heart.remove();
+            }, 7000);
+        }
+        setInterval(createHeart, 450);
+
+        // 2. Lógica do Contador de Tempo
+        const dataInicioNamoro = "2026-04-27T13:00:00"; 
+        
+        function updateCounter() {
+            const startDate = new Date(dataInicioNamoro);
+            const now = new Date();
+            const difference = now - startDate;
+
+            const d = Math.floor(difference / (1000 * 60 * 60 * 24));
+            const h = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const m = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+            const s = Math.floor((difference % (1000 * 60)) / 1000);
+
+            document.getElementById('days').innerText = d < 10 ? '0' + d : d;
+            document.getElementById('hours').innerText = h < 10 ? '0' + h : h;
+            document.getElementById('minutes').innerText = m < 10 ? '0' + m : m;
+            document.getElementById('seconds').innerText = s < 10 ? '0' + s : s;
+        }
+        setInterval(updateCounter, 1000);
+        updateCounter();
+
+        // 3. Joguinho do Botão Não que foge do mouse/toque
+        const btnNao = document.getElementById('btnNao');
+        function fleeButton() {
+            const x = Math.random() * 160 - 80; 
+            const y = Math.random() * 100 - 50; 
+            btnNao.style.transform = `translate(${x}px, ${y}px)`;
+        }
+
+        // 4. Exibir e fechar a surpresa (Modal)
+        function showSurprise() {
+            document.getElementById('surpriseModal').style.display = 'flex';
+        }
+        function closeSurprise() {
+            document.getElementById('surpriseModal').style.display = 'none';
+            
+            // Criar e injetar o emoji de beijo popando na tela
+            const kiss = document.createElement('div');
+            kiss.classList.add('kiss-pop');
+            kiss.innerText = '💋';
+            document.body.appendChild(kiss);
+            
+            setTimeout(() => {
+                kiss.remove();
+            }, 1200);
+        }
+
+        function showSadSurprise() {
+            document.getElementById('sadModal').style.display = 'flex';
+        }
+
+        // NOVO: Fechar o site de forma dramática
+        function closeAndDestroySite() {
+            // Tenta fechar a janela do navegador nativamente
+            window.close();
+            
+            // Como navegadores bloqueiam window.close() em abas não abertas por scripts,
+            // fazemos uma destruição dramática da tela fingindo que o site desligou por tristeza.
+            document.body.innerHTML = `
+                <div style="background: #121212; color: #b0bec5; width: 100vw; height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; font-family: 'Montserrat', sans-serif; text-align: center; padding: 20px;">
+                    <span style="font-size: 6rem; animation: pulse 1.5s infinite;">💔</span>
+                    <h1 style="color: #78909c; font-size: 2rem; margin-top: 20px; font-family: 'Montserrat', sans-serif;">Site Encerrado</h1>
+                    <p style="margin-top: 15px; font-size: 1rem; color: #607d8b; max-width: 400px;">
+                        Erro 404: Amor não correspondido. O site desmoronou em lágrimas e quebrou. 😭🌧️
+                    </p>
+                </div>
+            `;
+            document.body.style.background = "#121212";
+            document.body.style.overflow = "hidden";
+        }
+
+        // 5. Lista de cantadas super bregas e fofas
+        const phrases = [
+            "Um grandissíssimo de um lindão💕💕",
+            "Um baita dum fofinhuuuu 💞💞",
+            "Um adorável dum bonitinhu 💜💜",
+            "Um imensurável dum precioso💌💌",
+            "Um grandissíssimo de um carinhosu 💝💝",
+            "Um perfeituuuuuu 💜💜💜",
+            "Um encantável dum atencioso 💖💖",
+            "💜💖Meu bonitinho💖💜"
+        ];
+        let phraseIndex = 0;
+        function nextPhrase() {
+            phraseIndex = (phraseIndex + 1) % phrases.length;
+            document.getElementById('phraseBox').innerText = phrases[phraseIndex];
+        }
+
+        // 6. Explosão extra de corações ao clicar no coração central
+        function triggerHeartExplosion() {
+            for(let i = 0; i < 15; i++) {
+                setTimeout(createHeart, i * 60);
+            }
+        }
+
+        // 7. NOVO: Geração dinâmica da colagem com ALGORITMO ANTI-EMPILHAMENTO (Sistema de Distanciamento Fofo)
+        const collageContainer = document.getElementById('collageContainer');
+        const totalImages = 14;
+
+        function buildPhotoCollage() {
+            const placedPositions = [];
+            
+            // Define o distanciamento mínimo (em %) dependendo se a tela é celular ou PC
+            const isMobile = window.innerWidth <= 600;
+            const minDistance = isMobile ? 12 : 16; 
+
+            for (let i = 1; i <= totalImages; i++) {
+                const img = document.createElement('img');
+                img.src = `imgs/img${i}.jpg`;
+                img.classList.add('collage-img');
+                img.alt = `Foto ${i}`;
+
+                let randomLeft = 0;
+                let randomTop = 0;
+                let attempts = 0;
+                let validPosition = false;
+
+                // Loop matemático inteligente: roda até achar um cantinho livre
+                while (!validPosition && attempts < 200) {
+                    randomLeft = Math.floor(Math.random() * 82) + 4; // Margem segura das bordas horizontais
+                    randomTop = Math.floor(Math.random() * 84) + 4;  // Margem segura das bordas verticais
+                    
+                    validPosition = true;
+
+                    // Filtro 1: Evita que muitas fotos fiquem muito centradas e cobertas pelo Card
+                    const isOverlappingCenter = randomLeft > 32 && randomLeft < 68 && randomTop > 20 && randomTop < 75;
+
+                    // Filtro 2: Calcula a distância geométrica real de todas as outras fotos já inseridas
+                    for (const pos of placedPositions) {
+                        const distance = Math.sqrt(
+                            Math.pow(randomLeft - pos.left, 2) + 
+                            Math.pow(randomTop - pos.top, 2)
+                        );
+                        // Se estiver muito em cima de outra imagem, descarta a posição e tenta de novo
+                        if (distance < minDistance) {
+                            validPosition = false;
+                            break;
+                        }
+                    }
+
+                    // Tenta afastar do centro nas primeiras tentativas para espalhar melhor
+                    if (isOverlappingCenter && attempts < 60) {
+                        validPosition = false;
+                    }
+
+                    attempts++;
+                }
+
+                // Guarda a posição vitoriosa para servir de barreira para a próxima imagem
+                placedPositions.push({ left: randomLeft, top: randomTop });
+
+                // Angulação fofa de Scrapbook (-20deg a +20deg)
+                const randomRotation = Math.floor(Math.random() * 40) - 20;
+
+                img.style.left = `${randomLeft}%`;
+                img.style.top = `${randomTop}%`;
+                img.style.transform = `rotate(${randomRotation}deg)`;
+
+                collageContainer.appendChild(img);
+            }
+        }
+        
+        window.addEventListener('DOMContentLoaded', buildPhotoCollage);
+    </script>
+</body>
+</html>
